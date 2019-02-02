@@ -8,7 +8,7 @@ send commands and receive text messages in a fast and easy way without having to
 
 ## Download
 
-Get exe file from the latest [build](hhttps://github.com/Orello/Minecraft-Console-Client/releases/download/1.13.2/MinecraftClient1.13.2.zip).
+Get exe file from the latest [build](https://github.com/Orello/Minecraft-Console-Client/releases/download/1.13.2/MinecraftClient1.13.2.zip).
 This exe file is a .NET binary which also works on Mac and Linux.
 
 ## How to use
