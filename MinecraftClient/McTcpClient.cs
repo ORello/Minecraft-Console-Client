@@ -53,6 +53,8 @@ namespace MinecraftClient
         public string GetSessionID() { return sessionid; }
         public Location GetCurrentLocation() { return location; }
         public World GetWorld() { return world; }
+        
+        private long lastSentTime = DateTime.Now.Ticks;
 
         TcpClient client;
         IMinecraftCom handler;
@@ -385,6 +387,16 @@ namespace MinecraftClient
                     Settings.MCSettings_MainHand);
             foreach (ChatBot bot in bots)
                 bot.AfterGameJoined();
+                
+            if (Settings.MessageOnConnect)
+            {
+                if (Settings.SendLink)
+                    SendText("just connected using Minecraft Console Client; Link: " + Settings.DL_URL);
+                else
+                    SendText("just connected using Minecraft Console Client");
+
+                lastSentTime = DateTime.Now.Ticks;
+            }
         }
 
         /// <summary>
@@ -599,6 +611,16 @@ namespace MinecraftClient
             //Ignore placeholders eg 0000tab# from TabListPlus
             if (!ChatBot.IsValidName(name))
                 return;
+
+            if (Settings.MessageOnJoin && DateTime.Now.Ticks - lastSentTime >= TimeSpan.TicksPerSecond * 5) // Won't message when joining servers (5 second buffer)
+            {
+                if (Settings.SendLink)
+                    SendText("/m " + name + " Welcome back! -sent from Minecraft Console Client; Link: " + Settings.DL_URL);
+                else
+                    SendText("/m " + name + " Welcome back! -sent from Minecraft Console Client");
+
+                lastSentTime = DateTime.Now.Ticks; // waiting at least 5 seconds between welcomes
+            }
 
             lock (onlinePlayers)
             {
