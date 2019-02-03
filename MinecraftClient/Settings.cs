@@ -94,6 +94,10 @@ namespace MinecraftClient
         public static bool DebugMessages = false;
         public static bool ResolveSrvRecords = true;
         public static bool ResolveSrvRecordsShortTimeout = true;
+        public static bool MessageOnJoin = true;
+        public static bool MessageOnConnect = true;
+        public static bool SendLink = true;
+        public static string DL_URL = "tiny.cc/mconsole";
 
         //AntiAFK Settings
         public static bool AntiAFK_Enabled = false;
@@ -227,6 +231,9 @@ namespace MinecraftClient
                                                 case "privatemsgscmdname": PrivateMsgsCmdName = argValue.ToLower().Trim(); break;
                                                 case "botmessagedelay": botMessageDelay = TimeSpan.FromSeconds(str2int(argValue)); break;
                                                 case "debugmessages": DebugMessages = str2bool(argValue); break;
+                                                case "messageonjoin": MessageOnJoin = str2bool(argValue); break;
+                                                case "messageonconnect": MessageOnConnect = str2bool(argValue); break;
+                                                case "sendlink": SendLink = str2bool(argValue); break;
 
                                                 case "botowners":
                                                     Bots_Owners.Clear();
@@ -547,6 +554,9 @@ namespace MinecraftClient
                 + "debugmessages=false                # Please enable this before submitting bug reports. Thanks!\r\n"
                 + "scriptcache=true                   # Cache compiled scripts for faster load on low-end devices\r\n"
                 + "timestamps=false                   # Prepend timestamps to chat messages\r\n"
+                + "messageonjoin=true                 # Message each player that joins the server with a friendly hello!\r\n"
+                + "messageonconnect=true              # Send a chat message letting everyone know you're using MCC!\r\n"
+                + "sendlink=true                      # Send link to MCC with messageonconnect & messageonjoin?\r\n"
                 + "\r\n"
                 + "[AppVars]\r\n"
                 + "# yourvar=yourvalue\r\n"
